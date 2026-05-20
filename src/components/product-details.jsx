@@ -16,7 +16,10 @@ function ProductDetails({ product, shadeOptions = [], quantityOptions = [] }) {
   const [selectedSize, setSelectedSize] = useState("");
   const [selectedVariant, setSelectedVariant] = useState(null);
 
-  if (!product) return null;
+  const handleVariantSelect = (v) => {
+    setSelectedVariant(v);
+    setQty(1);
+  };
 
   const variants = product.variants || [];
   const activeProduct = selectedVariant || product;
@@ -79,7 +82,7 @@ function ProductDetails({ product, shadeOptions = [], quantityOptions = [] }) {
                 {variants.map((v) => (
                   <button
                     key={v.id}
-                    onClick={() => setSelectedVariant(v)}
+                    onClick={() => handleVariantSelect(v)}
                     className={`flex items-center gap-2 border rounded px-3 py-2 text-sm transition-colors ${selectedVariant?.id === v.id ? 'border-foreground bg-foreground text-background' : 'border-border text-foreground hover:border-foreground'}`}
                   >
                     {v.image?.url && (
